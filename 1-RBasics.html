@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Cynthia Welborn">
+<meta name="dcterms.date" content="2024-01-26">
+
+<title>Worksheet 1: R Basics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="1-RBasics_files/libs/clipboard/clipboard.min.js"></script>
+<script src="1-RBasics_files/libs/quarto-html/quarto.js"></script>
+<script src="1-RBasics_files/libs/quarto-html/popper.min.js"></script>
+<script src="1-RBasics_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="1-RBasics_files/libs/quarto-html/anchor.min.js"></script>
+<link href="1-RBasics_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="1-RBasics_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="1-RBasics_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="1-RBasics_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="1-RBasics_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Worksheet 1: R Basics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cynthia Welborn </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 26, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><em>This is the first in a series of worksheets for History 8510 at Clemson University. The goal of these worksheets is simple: practice, practice, practice. The worksheet introduces concepts and techniques and includes prompts for you to practice in this interactive document. When you are finished, you should change the author name (above), knit your document to a pdf, and upload it to canvas.</em></p>
+<section id="what-is-r" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-r">What is R?</h2>
+<p>To start let’s define what exactly R is. R is a language and environment for statistical computing and graphics. R provides a variety of statistical and graphical techniques and its very extensible which makes it an ideal language for historians.</p>
+</section>
+<section id="foundational-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="foundational-concepts">Foundational Concepts</h2>
+<section id="values" class="level3">
+<h3 class="anchored" data-anchor-id="values">Values</h3>
+<p>There are several kinds of variables in R. Numeric, logical, and strings.</p>
+<p>R takes inputs and returns an output. So for example, if our input is a number the output will be a number. Simply typing a number, below or in the console, will return a number or a <strong>numeric</strong> value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>Same thing happens if we use a number with a decimal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.5483</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.5483</code></pre>
+</div>
+</div>
+<p>Numbers can be used to do arithmetic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<ol class="example" type="1">
+<li>You try, multiple two numbers.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<ol start="2" class="example" type="1">
+<li>Can you multiply two numbers and then divide by the result?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">*</span> <span class="dv">5</span>)<span class="sc">/</span><span class="dv">25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>The next type of value is a <strong>string</strong>. Strings are lines of text. Sometimes these are referred to as character vectors. To create a string, you add text between two quotation marks. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Go Tigers"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Go Tigers"</code></pre>
+</div>
+</div>
+<ol start="3" class="example" type="1">
+<li>Try to create your own string.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Hello, everyone!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hello, everyone!"</code></pre>
+</div>
+</div>
+<p>You can’t add strings using <code>+</code> like you can numbers. But there is a function called <code>paste()</code> which concatenates character vectors into one. This function is <em>very</em> useful and one you’ll use a lot in a variety of circumstances. Here’s what that looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Hello"</span>, <span class="st">"Clemson Graduate Students"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hello Clemson Graduate Students"</code></pre>
+</div>
+</div>
+<ol start="4" class="example" type="1">
+<li>Try it, add two strings together like the above example.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Hello, everyone!"</span>, <span class="st">"R is a great language for historians!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hello, everyone! R is a great language for historians!"</code></pre>
+</div>
+</div>
+<ol start="5" class="example" type="1">
+<li>Can you explain what happened in 2-3 sentences?</li>
+</ol>
+<blockquote class="blockquote">
+<p>Paste is a way to connect strings. I was able to connect two strings, or sentences, by using the paste function.</p>
+</blockquote>
+<p>The last type are <strong>logical</strong> values like <code>TRUE</code> and <code>FALSE</code>. (Note that these are all caps.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>These logical values are really useful for testing a statement and comparing values to each other. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>3 is indeed less than 4 so the return value is <code>TRUE</code>. Here are a few more examples:</p>
+<p>R also has relational operators and logical operators. Relational operators test how one object relates to another. We’ve been using some of these above.</p>
+<ul>
+<li>Equality <code>==</code></li>
+<li>Inequality <code>!=</code></li>
+<li>Less than or Greater than <code>&lt;</code> and <code>&gt;</code></li>
+<li>Less than/greater than or equal to <code>&lt;=</code> and <code>&gt;=</code></li>
+</ul>
+<p>Logical Operators allow you to combine or change the results of comparisons. * AND <code>&amp;</code> * OR <code>|</code> * NOT <code>!</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">==</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">!=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">!=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">!=</span> <span class="dv">4</span> <span class="sc">&amp;</span> <span class="dv">3</span> <span class="sc">!=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ol start="6" class="example" type="1">
+<li>Explain, what does the code on each line above do?</li>
+</ol>
+<blockquote class="blockquote">
+<p>These codes are comparing numbers to one another. For example, 3 &lt; 4 will return a result of TRUE because three is indeed less than four. To include another example, 5 != 5 will return a result of FALSE, because 5 is equal to 5 (not an inequality).</p>
+</blockquote>
+<ol start="7" class="example" type="1">
+<li>Create your own comparison.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">!=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>Values are great but they are made so much more powerful when combined with <strong>Variables</strong> which are a crucial building block of any programming language. Simply put, a variable stores a value. For example if I want x to equal 5 I can do that like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>&lt;-</code> is known as an assignment operator. Technically, you could use <code>=:</code> here too but it is considered bad practice and can cause complicated issues when you write more advanced code. So its important to stick with <code>&lt;-</code> whenever you are coding in R.</p>
+<p>I can also add a string or character vector to a variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"Go Tigers!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variable names can be almost anything.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>MyFavoriteNumber <span class="ot">&lt;-</span> <span class="dv">25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variable or object names must start with a letter, and can only contain letters, numbers, <code>_</code>, and <code>.</code>. You want your object names to be descriptive, so you’ll need a convention for multiple words. People do it different ways. I tend to use periods but there are several options:</p>
+<pre><code>i_use_snake_case 
+otherPeopleUseCamelCase 
+some.people.use.periods 
+And_aFew.People_RENOUNCEconvention</code></pre>
+<p>Whatever you prefer, be consistent and your future self will thank you when your code gets more complex.</p>
+<ol start="8" class="example" type="1">
+<li>You try, create a variable and assign it a number:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="ot">-&gt;</span> this.is.a.variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="9" class="example" type="1">
+<li>Can you assign a string to a variable?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>this.is.a.variable <span class="ot">-&gt;</span> <span class="st">"Did I assign it a string? lol"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we’ve assigned a variable we can use that variable to run calculations just like we did with raw numbers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 125</code></pre>
+</div>
+</div>
+<p>R can also handle more complex equations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">+</span> x)<span class="sc">/</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">+</span> x <span class="sc">*</span> x) <span class="sc">-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 550</code></pre>
+</div>
+</div>
+<p>And we could store the output of a calculation in a new variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>My.Calculation <span class="ot">&lt;-</span> (x <span class="sc">+</span> x)<span class="sc">*</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="10" class="example" type="1">
+<li>You try. Assign a number to x and a number to y. Add those two numbers together.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<ol start="11" class="example" type="1">
+<li>Can you take <code>x</code> and <code>y</code> and multiply the result by 5?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>(x<span class="sc">+</span>y)<span class="sc">*</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35</code></pre>
+</div>
+</div>
+<ol start="12" class="example" type="1">
+<li>Try creating two variables with names other than <code>x</code> and <code>y</code>. Descriptive names tend to be more useful. Can you multiply the contents of your variables?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>number.of.tax.records <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>number.of.citizens <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>number.of.citizens<span class="sc">*</span>number.of.tax.records</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1000</code></pre>
+</div>
+</div>
+<ol start="13" class="example" type="1">
+<li>Try creating two variables that store strings. Can you concatenate those two variables together?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>tax <span class="ot">&lt;-</span> <span class="st">"Tax records for citizen living in 1803."</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>deed <span class="ot">&lt;-</span> <span class="st">"Deed records for citizens living in 1803."</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Deed records for citizens living in 1803."</span>,<span class="st">"Tax records for citizen living in 1803."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Deed records for citizens living in 1803. Tax records for citizen living in 1803."</code></pre>
+</div>
+</div>
+</section>
+<section id="vectors" class="level3">
+<h3 class="anchored" data-anchor-id="vectors">Vectors</h3>
+<p>If we have a lot of code and rely on just variables, we’re going to have a lot of variables. That’s where <strong>vectors</strong> come into play. Vectors allow you to store multiple values. All variables in R are actually already vectors. That’s why when R prints an output, there is a <code>[1]</code> before it. That means there is one item in that vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>myvalue <span class="ot">&lt;-</span> <span class="st">"George Washington"</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>myvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "George Washington"</code></pre>
+</div>
+</div>
+<p>In this instance “George Washington” is the only item in the variable myvalue. But we could add more. To do that we use the <code>c()</code> function which combines values into a vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>myvalue <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"George Washington"</span>, <span class="st">"Franklin Roosevelt"</span>, <span class="st">"John Adams"</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>myvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "George Washington"  "Franklin Roosevelt" "John Adams"        </code></pre>
+</div>
+</div>
+<p>You’ll notice that the output still only shows <code>[1]</code> but that doesn’t mean there is only one item in the list. It simply means George Washington is the first. If we use <code>length()</code> we can determine the number of items in this vector list.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(myvalue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p>We could get the value of the 2nd or 3rd item in that list like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>myvalue[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Franklin Roosevelt"</code></pre>
+</div>
+</div>
+<p>We could also create a vector of numbers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>my.numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And we could then do calculations based on these values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>my.numbers <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  4  8 12 16</code></pre>
+</div>
+</div>
+<ol start="14" class="example" type="1">
+<li>Explain in a few sentences, what happened in the code above?</li>
+</ol>
+<blockquote class="blockquote">
+<p>The code multiplied each number in the vector by two. Therefore, the result is a list of numbers (2 times 2 equals 4, 2 times 4 equals 8, etc.)</p>
+</blockquote>
+<p>Lets try something slightly different.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>my.numbers[<span class="dv">3</span>] <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<ol start="15" class="example" type="1">
+<li>Explain in a few sentences, what happened in the code above?</li>
+</ol>
+<blockquote class="blockquote">
+<p>This time, the code multiplied 2 by the third number in the vector. Therefore, the result is 12, because the third number in the vector is 6, and 6 times 2 is 12.</p>
+</blockquote>
+<ol start="16" class="example" type="1">
+<li>You try, create a list of five items and store it in a descriptive variable.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>tax.records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="built-in-functions" class="level3">
+<h3 class="anchored" data-anchor-id="built-in-functions">Built In Functions</h3>
+<p>R also has <strong>built in functions</strong>. We’ve already used a couple of these: <code>paste()</code> and <code>c()</code>. But there are others, like <code>sqrt()</code> which does what you think it does, finds the square root of a number.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.62278</code></pre>
+</div>
+</div>
+<p>Many functions have options that can be added to them. For example, the <code>round()</code> function allows you to include an option specifying how many digits to round to.</p>
+<p>You can run it without that option and it’ll use the default:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">15.492827349</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+<p>Or we can tell it to round it to 2 decimal places.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">15.492827349</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.49</code></pre>
+</div>
+</div>
+<p>How would you know what options are available for each function in R? Every function and package in R comes with <strong>documentation</strong> or a <strong>manual</strong> that is built into R studio and can be pulled by by typing a question mark in front of the function in your console. These packages will commonly give you examples of how to use the function and syntax for doing so. They are incredibly useful.</p>
+<p>We can ask R to pull up the documentation like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>?<span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="17" class="example" type="1">
+<li>Now you try, find the documentation for the function <code>signif()</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>?signif</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In real life, you typically you wouldn’t want to store this code in your script file. You probably don’t need to pull up the documentation for the function every time you run that piece of code. But for the purposes of this worksheet we’re adding it to our <code>.Rmd</code> document.</p>
+<ol start="18" class="example" type="1">
+<li>Use the console to find the documentation for <code>floor()</code>? Try it and then tell me, what does that function do?</li>
+</ol>
+<blockquote class="blockquote">
+<p>Floor takes a single numeric argument x and returns a numeric vector containing the largest integers not greater than the corresponding elements of x.</p>
+</blockquote>
+</section>
+<section id="data-frames-packages" class="level3">
+<h3 class="anchored" data-anchor-id="data-frames-packages">Data Frames &amp; Packages</h3>
+<p>R is the language of choice for most data scientists and that is because of its powerful suite of data analysis tools. Some are built into R, like <code>floor()</code> which we looked at above. But others come from packages that you have to install. Most programming languages have some sort of package system although every language calls it a slightly different thing. Ruby has gems, python has eggs, and php has libraries. In R these are called packages or libraries and they are hosted by the Comprehensive R Archive Network or more commonly, CRAN. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. You didn’t know it but you already used CRAN when you looked up the documentation for <code>floor()</code> above. If you go to the CRAN webpage and look at the <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">list of available R packages</a> you’ll see just how many there are!</p>
+<p>So there are many packages but there are also some that are indispensable. You’ll use some packages over and over for this class. We’ll get into some of those in the next two worksheets but for now lets look at one basic package for data.</p>
+<p>Lets start with the <code>tibble()</code> package which allows you to create and work with <strong>data frames</strong>. What is a data frame? Think of it as a spreadsheet. Each column can contain data - including numbers, strings, and logical values.</p>
+<p>Lets load the <code>tibble()</code> package. If you have this package installed this line of code will work. If not, you’ll get an error that says something like: <code>## Error in library("tibble"): there is no package called 'tibble'</code>. If that’s the case (it probably is), then no worries - we can install it. To install a package run <code>install.packages("tibble")</code> in your console and R will download and install the package. (Remember this isn’t code that we want or need to store in our document, so run it in your console not in the <code>.Rmd</code> document.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The tibble package will allow you to create dataframes. Lets use some built in data in R to demonstrate this. This dataset contains the measurements in centimeters of sepal and petal width and length. Lets start by figuring out what kind of data iris is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<p>We can see that iris is a list. But we want to use the tibble package to turn it into a dataframe. Thats very easy, we can simply run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p>That is useful. But we can also create our own data frame from vectors. That means we can create the values in each field. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="at">y =</span> <span class="dv">1</span>, </span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="at">z =</span> x <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> y</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+      x     y     z
+  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     1     3
+2     2     1     5
+3     3     1     7
+4     4     1     9
+5     5     1    11</code></pre>
+</div>
+</div>
+<p>What is going on here? Each line within this function (x,y,z) creates a new column and determines the values in each row. So the first line creates five rows with values sequentially from 1 to 5. The second column contains only the value 1 in all five rows.</p>
+<ol start="19" class="example" type="1">
+<li>What is going on in row z? Can you explain the logic here?</li>
+</ol>
+<blockquote class="blockquote">
+<p>It looks like z is an equation, so it is solving the equation using the numbers in each row (x and y).</p>
+</blockquote>
+</section>
+</section>
+<section id="loading-dataframes-from-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-dataframes-from-packages">Loading Dataframes from Packages</h2>
+<p>Lets also install the data package that I’ve created for our class. This package contains a variety of historical datasets that you can use to complete your assignments this semester. However, this package is not on CRAN. That’s okay. We can still install it from GitHub. To do that we’ll need to use the <code>devtools</code> package. We’ll install devtools and then use it to install our class’s package which is hosted on GitHub.</p>
+<p>First, install the <code>devtools</code> package.</p>
+<p>Our class’s package is called <code>DigitalMethodsData</code> and its hosted on <a href="https://github.com/regan008/DigitalMethodsData">GitHub</a>. Use the directions on the repository page and what you learned about packages above to install this package.</p>
+<p>After installing the package, we should load it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DigitalMethodsData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What kind of datasets are available in this package? We can use the help documentation to find out.</p>
+<p>Run <code>help(package="DigitalMethodsData")</code> in your console to pull up a list of datasets included in this package.</p>
+<p>For demonstration purposes we’ll use the <code>gayguides</code> data here. Pull up the help documentation for this dataset. What does the documentation tell you abou the scope of this dataset?</p>
+<blockquote class="blockquote">
+<p>From the description, this dataset contains information transcribed from Bob Damron’s Address Books from 1965 through 1985.</p>
+</blockquote>
+<p>To use a dataset included in this package we first need to load it. We can do so like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(gayguides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that you now have a loaded dataset in your environment pane. It shows us that there are 60,698 observations (rows) of data and 14 variables (columns).</p>
+<p>Let’s now look at our data. You can use the <code>head()</code> function to return the first part of an object or dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gayguides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X   ID        title                   description streetaddress
+1 1 3213       'B.A.'               (woods &amp; ponds)              
+2 2 2265 'B.A.' Beach                      2 mi. E.        Rte. 2
+3 3 3269 'B.A.' Beach            nr. Salt Air Beach              
+4 4 3388 'B.A.' Beach nr. Evergreen Floating Bridge              
+5 5 3508 'B.A.' Beach          (2 mi. E. on Rte. 2)              
+6 6 5116 'B.A.' Beach nr. Evergreen Floating Bridge              
+            type amenityfeatures           city state Year notes      lat
+1 Cruising Areas     Cruisy Area    Lake Placid    NY 1982       44.27949
+2 Cruising Areas     Cruisy Area           Troy    NY 1981       42.72841
+3 Cruising Areas     Cruisy Area Salt Lake City    UT 1981       40.74781
+4 Cruising Areas     Cruisy Area        Seattle    WA 1981       47.60621
+5 Cruising Areas     Cruisy Area           Troy    NY 1982       42.72841
+6 Cruising Areas     Cruisy Area        Seattle    WA 1983       47.60621
+         lon
+1  -73.97987
+2  -73.69178
+3 -112.18727
+4 -122.33207
+5  -73.69178
+6 -122.33207
+                                                                      status
+1 Location could not be verified. General city or location coordinates used.
+2 Location could not be verified. General city or location coordinates used.
+3 Location could not be verified. General city or location coordinates used.
+4 Location could not be verified. General city or location coordinates used.
+5 Location could not be verified. General city or location coordinates used.
+6 Location could not be verified. General city or location coordinates used.</code></pre>
+</div>
+</div>
+<p>That gives us the first 6 rows of data. Its really useful if you just want to peak into the dataset but don’t want to print out all 60k+ rows.</p>
+<ol start="20" class="example" type="1">
+<li>The default is to print six rows of data. Can you modify the above code to print out the first 10 rows?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gayguides,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X   ID        title                        description streetaddress
+1   1 3213       'B.A.'                    (woods &amp; ponds)              
+2   2 2265 'B.A.' Beach                           2 mi. E.        Rte. 2
+3   3 3269 'B.A.' Beach                 nr. Salt Air Beach              
+4   4 3388 'B.A.' Beach      nr. Evergreen Floating Bridge              
+5   5 3508 'B.A.' Beach               (2 mi. E. on Rte. 2)              
+6   6 5116 'B.A.' Beach      nr. Evergreen Floating Bridge              
+7   7  780 'B.A.' Beach on Russian River, at Wohler Bridge              
+8   8 3810 'B.A.' Beach                           2 mi. E.        Rte. 2
+9   9 4979 'B.A.' Beach                 nr. Salt Air Beach              
+10 10 5191 'B.A.' Beach      nr. Evergreen Floating Bridge              
+             type amenityfeatures           city state Year notes      lat
+1  Cruising Areas     Cruisy Area    Lake Placid    NY 1982       44.27949
+2  Cruising Areas     Cruisy Area           Troy    NY 1981       42.72841
+3  Cruising Areas     Cruisy Area Salt Lake City    UT 1981       40.74781
+4  Cruising Areas     Cruisy Area        Seattle    WA 1981       47.60621
+5  Cruising Areas     Cruisy Area           Troy    NY 1982       42.72841
+6  Cruising Areas     Cruisy Area        Seattle    WA 1983       47.60621
+7  Cruising Areas     Cruisy Area  Russian River    CA 1983       38.91163
+8  Cruising Areas     Cruisy Area           Troy    NY 1983       42.72841
+9  Cruising Areas     Cruisy Area Salt Lake City    UT 1983       40.74781
+10 Cruising Areas     Cruisy Area        Seattle    WA 1984       47.60621
+          lon
+1   -73.97987
+2   -73.69178
+3  -112.18727
+4  -122.33207
+5   -73.69178
+6  -122.33207
+7  -123.01105
+8   -73.69178
+9  -112.18727
+10 -122.33207
+                                                                       status
+1  Location could not be verified. General city or location coordinates used.
+2  Location could not be verified. General city or location coordinates used.
+3  Location could not be verified. General city or location coordinates used.
+4  Location could not be verified. General city or location coordinates used.
+5  Location could not be verified. General city or location coordinates used.
+6  Location could not be verified. General city or location coordinates used.
+7  Location could not be verified. General city or location coordinates used.
+8  Location could not be verified. General city or location coordinates used.
+9  Location could not be verified. General city or location coordinates used.
+10 Location could not be verified. General city or location coordinates used.</code></pre>
+</div>
+</div>
+<ol start="21" class="example" type="1">
+<li>Can you find the last 6 rows of data?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(gayguides,<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          X    ID           title               description streetaddress
+60693 60693 PR351       Boccachio            (Natives only)              
+60694 60694 PR366       Boccachio            (Natives only)              
+60695 60695 PR377       Boccachio            (Natives only)              
+60696 60696 GU002   Mi Elena Club (Inquire locally) (Agana)          &lt;NA&gt;
+60697 60697 GU015 Star Cafe &amp; Bar Downtown, opp. Agana Loop          &lt;NA&gt;
+60698 60698 GU019 Star Cafe &amp; Bar Downtown, opp. Agana Loop          &lt;NA&gt;
+            type
+60693 Bars/Clubs
+60694 Bars/Clubs
+60695 Bars/Clubs
+60696 Bars/Clubs
+60697 Bars/Clubs
+60698 Bars/Clubs
+                                                                                  amenityfeatures
+60693                                                                                     (G),(*)
+60694                                                                                         (G)
+60695                                                                                         (L)
+60696                                                         (M) - Mixed Crowds - Some Straights
+60697 (M) - Mixed Crowds - Some Straights,(YC) - Young and/or collegiate types,(*) - Very popular
+60698 (M) - Mixed Crowds - Some Straights,(YC) - Young and/or collegiate types,(*) - Very popular
+          city state Year notes      lat       lon
+60693 Hato Ray    PR 1977       18.42258 -66.05096
+60694 Hato Ray    PR 1979       18.42258 -66.05096
+60695 Hato Ray    PR 1980       18.42258 -66.05096
+60696    Agana    GU 1980  &lt;NA&gt; 13.47628 144.75022
+60697    Agana    GU 1975  &lt;NA&gt; 13.47628 144.75022
+60698    Agana    GU 1974  &lt;NA&gt; 13.47628 144.75022
+                                                                          status
+60693 Location could not be verified. General city or location coordinates used.
+60694 Location could not be verified. General city or location coordinates used.
+60695 Location could not be verified. General city or location coordinates used.
+60696 Location could not be verified. General city or location coordinates used.
+60697 Location could not be verified. General city or location coordinates used.
+60698 Location could not be verified. General city or location coordinates used.</code></pre>
+</div>
+</div>
+<ol start="22" class="example" type="1">
+<li>Reflect on the previous two prompts. How did you figure these out?</li>
+</ol>
+<blockquote class="blockquote">
+<p>Honestly, I just googled these questions. But now it makes sense, heads and tails!</p>
+</blockquote>
+<p>The <code>str()</code> function is another very useful function for understanding a dataset. It compactly displays the internal structure of an R object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gayguides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   60698 obs. of  14 variables:
+ $ X              : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ ID             : chr  "3213" "2265" "3269" "3388" ...
+ $ title          : chr  "'B.A.'" "'B.A.' Beach" "'B.A.' Beach" "'B.A.' Beach" ...
+ $ description    : chr  "(woods &amp; ponds)" "2 mi. E." "nr. Salt Air Beach" "nr. Evergreen Floating Bridge" ...
+ $ streetaddress  : chr  "" "Rte. 2" "" "" ...
+ $ type           : chr  "Cruising Areas" "Cruising Areas" "Cruising Areas" "Cruising Areas" ...
+ $ amenityfeatures: chr  "Cruisy Area" "Cruisy Area" "Cruisy Area" "Cruisy Area" ...
+ $ city           : chr  "Lake Placid" "Troy" "Salt Lake City" "Seattle" ...
+ $ state          : chr  "NY" "NY" "UT" "WA" ...
+ $ Year           : int  1982 1981 1981 1981 1982 1983 1983 1983 1983 1984 ...
+ $ notes          : chr  "" "" "" "" ...
+ $ lat            : num  44.3 42.7 40.7 47.6 42.7 ...
+ $ lon            : num  -74 -73.7 -112.2 -122.3 -73.7 ...
+ $ status         : chr  "Location could not be verified. General city or location coordinates used." "Location could not be verified. General city or location coordinates used." "Location could not be verified. General city or location coordinates used." "Location could not be verified. General city or location coordinates used." ...</code></pre>
+</div>
+</div>
+<p>There is a ton of useful info here. First, we see that this is a data.frame and that it has 60698 obs. of 14 variables. Second, we see the names of all the variables (columns) in the dataset. Lastly, it shows us what type of data is contained in each variable. For example, the variable <code>state</code> is a chr or character vector while <code>Year</code> (note the capitalization) is numeric.</p>
+<p>The <code>$</code> operator allows us to get a segment of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gayguides<span class="sc">$</span>title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "'B.A.'"       "'B.A.' Beach" "'B.A.' Beach" "'B.A.' Beach" "'B.A.' Beach"
+[6] "'B.A.' Beach"</code></pre>
+</div>
+</div>
+<p>While that’s useful, this particular dataset happens to be sorted by title. So the first rows are all labeled some version of B.A. beach. That’s not very useful. What if we want to see the 500th item in this list? Well, we can pull that up like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>gayguides<span class="sc">$</span>title[<span class="dv">500</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "'Rest Stop'"</code></pre>
+</div>
+</div>
+<ol start="23" class="example" type="1">
+<li>Break this down. Whats going on here? What do each of the elements of this code mean? (gayguides, $, title, and [500])</li>
+</ol>
+<blockquote class="blockquote">
+<p>This code means we want a segment of data in the gayguides dataset. The segment we want is the title of the 500th row in the dataframe.</p>
+</blockquote>
+<ol start="24" class="example" type="1">
+<li>The Year variable contains the year (numeric) of each entry. Can you find the earliest year in this dataset? (Using code, don’t cheat and use the documentation!)</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(gayguides<span class="sc">$</span>Year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1965</code></pre>
+</div>
+</div>
+<ol start="25" class="example" type="1">
+<li>How about the latest year?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(gayguides<span class="sc">$</span>Year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1985</code></pre>
+</div>
+</div>
+<ol start="26" class="example" type="1">
+<li>Add another dataset from <code>DigitalMethodsData</code>. How many observations are included in this dataset? Run through some of the examples from above to learn about the dataset.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"statepopulations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="27" class="example" type="1">
+<li>What did you learn about the dataset? What can you tell me about it?</li>
+</ol>
+<blockquote class="blockquote">
+<p>I opened the State Populations dataset, and tried to find the smallest population for a particular year, largest population for a particular year, and the average state population for a particular year, but it kept returning NA as an output. I Googled this, and I read that getting NA as an output means that there is missing data. This is because different states joined in different years. There really isn’t “missing” data, in this case. I Googled again, and found that I could do something like: mean(statepopulations$X1820,na.rm+TRUE) to find that the average state population in 1820 was around 357000 people. This function tells R to ignore the cells that contain NA instead of a number. Cool!</p>
+</blockquote>
+<p>CONGRATS! You’ve completed your first worksheet for Digital Methods II. That wasn’t so bad, right?</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

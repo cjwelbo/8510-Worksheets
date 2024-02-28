@@ -209,14 +209,25 @@ ggplot(exp.by.city, aes(x = state, y = total_expenditures)) +
 
 (@) Using the gayguides data can you select 5 types of locations and chart the number of each type between 1965 and 1980? 
 ```{r}
+gg.by.loc <- gayguides %>% filter(type == "Cruising Areas" | type == "Hotel" | type == "Restaurant" | type == "Bar" | type == "Club") %>% filter(Year == 1965 | 1980) %>% group_by(type, Year) %>% summarize(count = n())
 
+ggplot(gg.by.loc, aes(x = Year, y = count)) +
+  geom_line() + facet_wrap(~type)
 ```
 
 (@) Using this recreation dataset from last week, can you find the average number of volunteer and paid workers over time? 
 ```{r}
 rec.workers <- read.csv("https://raw.githubusercontent.com/regan008/DigitalMethodsData/main/raw/RecreationData-Wide.csv")
 
+library(DigitalMethodsData)
+view(recreational.data)
+vol.over.time <- rec.workers %>% filter(type_of_worker == "male paid" | type_of_worker == "female paid" | type_of_worker == "men volunteer" | type_of_worker == "women volunteer") %>% group_by(type_of_worker)
 
+vol.over.time <- pivot_longer(vol.over.time,cols = X1930:X1945,names_to = "year", values_to = "count")
+
+ggplot(vol.over.time, aes(x = type_of_worker)) +
+  geom_bar() + facet_wrap(~year)
+#I got pretty far with this one, but I can't figure out how to make it return the average instead of the count.
 ```
 
 ### Practice

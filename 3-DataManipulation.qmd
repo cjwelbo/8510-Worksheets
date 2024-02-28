@@ -253,6 +253,8 @@ gayguidesregions <- left_join(gayguides,regions, by=c("state"="Division"))
 head(gayguidesregions)
 
 ```
+I wasn't able to get this to work. It just lists NA in each observation for the region...
+
 
 (@) Explain what you did above. What variable did you join by and why? What results? I tried this one, but there are multiple columns in the new data frame that have NA in the cells.
 
@@ -260,7 +262,7 @@ head(gayguidesregions)
 ```{r}
 
 ```
-
+I will need some review with joining two datasets before I can attempt this one.
 
 ### `pivot_longer()` and `pivot_wider()`: Converting Wide and Long Data
 
@@ -292,12 +294,15 @@ sc.parks %>%
 
 (@) Widen the `sc.parks` dataset so that the column names are drawn from the type of recreation worker.
 ```{r}
+sc.parks %>%
+  pivot_wider(names_from = type_of_worker, values_from = count)
 
 ```
 
 (@) Turn `rec.spaces` into a wide dataframe. 
 ```{r}
-
+rec.spaces %>%
+  pivot_wider(names_from = type, values_from = type)
 ```
 
 
@@ -344,6 +349,8 @@ gayguides %>%
 
 (@) Write a function that filters the gay guides dataset. It should accept 2 arguments: year and state. When passed to the function the function should return only the title, type, state and year for each entry. 
 ```{r}
-
+gayguides %>%
+  select(Year, state) %>%
+  
 ```
-
+I am not sure how to do this yet.

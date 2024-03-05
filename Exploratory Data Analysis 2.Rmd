@@ -1,0 +1,87 @@
+---
+title: "Exploratory Data Analysis 2"
+author: "Cynthia Welborn"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+1. Formulate your question.
+How did the population of South Carolina change over the course of the long nineteenth century(1789-1914)?
+
+2. Read in your data.
+```{r}
+data(statepopulations)
+view(statepopulations)
+```
+
+3. Check the packaging.
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+```
+
+4. Run str().
+```{r}
+str(statepopulations)
+```
+
+5. Look at the top and bottom of your data.
+```{r}
+head(statepopulations)
+tail(statepopulations)
+```
+
+6. Check your "n"s.
+```{r}
+statepopulations %>%
+  filter(STATE == "South Carolina")
+```
+
+7. Validate with at least one external data source.
+I found a census bulletin released in 1901 that confirmed the population numbers in the dataset: https://www2.census.gov/library/publications/decennial/1900/bulletins/demographic/46-population-sc.pdf
+
+8. Try the easy solution first.
+```{r}
+state.pop.sc <- statepopulations %>%
+  filter(STATE == "South Carolina") %>% 
+state.pop.sc %>% mutate(difference = X1910 - X1790)
+```
+9. Challenge your solution.
+The code above gives me a good start. I now have a variable saved with just the census information for South Carolina for each year in the dataset. I am also able to see that the population changed over the long nineteenth century by applying the mutate function. South Carolina's population grew by 1,266,327 people between 1790 and 1910. However, I can use ggplot2 to get more details about South Carolina's population over time by creating a visualization. 
+```{r}
+sc.pop.by.year <- state.pop.sc %>%
+  pivot_longer(!GISJOIN:STATENH, names_to = "year", values_to = "population")
+```
+```{r}
+ggplot(data = sc.pop.by.year, mapping = aes(x = year, y = population, color=population)) + geom_point() + labs(x="YEAR", y="POPULATION", title="South Carolina Population by Year")
+```
+10. Follow up. Do you have the right data? Do you need other data? Do you have the right question?
+
+I chose a simple question with an easily verifiable answer so that I could practice some of the things I've learned so far this semester(I hope it's OK, how simple this is!). I have had success in the past with the state populations dataset, so I chose to ask a question about population change over time that I would answer by subsetting and visualizing some of the data from that particular resource. Visualizing the data helped me to see trends over time in terms of the state population of South Carolina. However, when reflecting on this process, I realize that I did not filter for the years 1790-1910 when subsetting the data. Therefore, the visualization I ended up with is of limited use. The visualization is a bit hard to read because it includes all years for South Carolina, not just the years that related to my research question. According to Peng, "The goal of exploratory data analysis is to get you thinking about your data and reasoning about your question. At this point, we can refine our question or collect new data, all in an iterative process to get at the truth." If I were continuing this process, I could go back and subset the data in a more useful way for my research question. I could also refine or change my question. For example, I could compare the state populations of two states over time, or find additional datasets to join with the state populations dataset, such as GIS data, manumission data, or something else.
+

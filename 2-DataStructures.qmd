@@ -375,13 +375,18 @@ I think the loop was designed to start after 2 and stop after 4, so it only retu
 data("statepopulations")
 view(statepopulations)
 for (i in 1:length(statepopulations$X1800)) {
-  if ((statepopulations$X1800[i] < 200000))
+  
+  if (is.na(statepopulations$X1800[i] > 200000)) {
+  
     next
+  }
   
-  if ((statepopulations$X1800[i] > 250000))
-    break
+  else if ((statepopulations$X1800[i] > 250000) {
+    
+    {
   
-  print (statepopulations$state[i])
+  print(statepopulations$STATE[i])
+  
 }
 ```
 I thought I was close on this one, but I get an error message that states I'm missing a true/false argument.
@@ -512,6 +517,8 @@ gg.locations <- function (city, year) {
     } 
   }
 }
+
+gg.locations("Greenville",1980)
 ```
 
 (@) Write a function that uses the things you've learned in this worksheet. The function should accept two arguments, city and year. It should pull all the locations in that city and year and return a statement that says "Found a location called xxx". (Where x is the title of a location in that year and city.) 
@@ -521,10 +528,15 @@ gg.locations <- function (city, year) {
 
 (@) Use the Boston Women Voter dataset. Write a function that accepts the name of an occupation. Your function should return new dataframe that includes the records for every voter listed with that occupation.  
 ```{r}
-view(BostonWomenVoters)
-l:length(BostonWomensVoters$occupation)
-for (x in 1:length(BostonWomenVoters$Occupation)) {
-  print(BostonWomenVoters$Occupation[x])
+data(BostonWomenVoters)
+bwv.occupation <- function(occupation) {
+  for(i in 1:length(BostonWomenVoters$Occupation)){
+  if(BostonWomenVoters$Occupation[i] == occupation){
+    print(BostonWomenVoters$Name[i])
+  }
+  }
 }
+
+bwv.occupation("Student")
 ```
 We worked on something similar last week, so I had this chunk of code stored, which might be a start? But I don't know to get it to return the records for just one occupation as opposed to all of them.

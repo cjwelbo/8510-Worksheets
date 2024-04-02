@@ -128,13 +128,55 @@ for (x in 1:length(students)) {
 }
 # prints each student's name in the list
 
+Efforts to replace underscores with spaces (nonworking code):
+  
+Boston.Address.New2 <- Boston.Address.New %>%
+  mutate(Geocoding = str_replace(Geocoding,"_", " "))
+data$species <- gsub(" ", "_", data$species)
 
 
+forcats::fct_relevel()
 
 
+view(gss_cat)
+library(tidyverse)
+gss_cat %>%
+  select(race) %>%
+  table()
 
+gss_cat %>% 
+  mutate(race = fct_drop(race)) %>%
+  select(race) %>%
+  table()
 
+gss_cat %>%
+  mutate(race = fct_drop(race)) %>%
+  mutate(race = fct_relevel(race,
+                            c("White", "Black", "Other"))) %>%
+  select(race) %>%
+  table()
 
+#Here's my example
 
+gss_cat %>%
+  select(marital) %>%
+  table()
 
+gss_cat %>%
+  mutate(marital = fct_relevel(marital,
+      c("Never married", "Married", "Separated", "Divorced", "Widowed", "No answer"))) %>%
+  select(marital) %>%
+  table()
 
+#Here's another example
+
+gg.by.loc %>%
+  select(type) %>%
+  table()
+
+gg.by.loc %>%
+  mutate(type = fct_relevel(type,
+                               c("Hotel", "Restaurant", "Cruising Areas"))) %>%
+  select(type) %>%
+  table()
+#doesn't work

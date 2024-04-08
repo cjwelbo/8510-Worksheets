@@ -180,3 +180,5 @@ gg.by.loc %>%
   select(type) %>%
   table()
 #doesn't work
+
+

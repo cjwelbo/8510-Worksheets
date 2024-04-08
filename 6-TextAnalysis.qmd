@@ -1,7 +1,7 @@
 ---
 title: 'Worksheet 6: Text Analysis'
-author: ''
-date: ''
+author: 'Cynthia Welborn'
+date: '4/2/24'
 ---
 
 _This is the sixth in a series of worksheets for History 8510 at Clemson University. The goal of these worksheets is simple: practice, practice, practice. The worksheet introduces concepts and techniques and includes prompts for you to practice in this interactive document. When you are finished, you should change the author name (above), knit your document, and upload it to canvas. Don't forget to commit your changes as you go and push to github when you finish the worksheet._
@@ -21,7 +21,7 @@ In this worksheet we are focusing on basic text analysis. We'll learn how to loa
 Before doing too much, lets load a few relevant libraries. The last few you will likely need to install.
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(tidytext) 
+library(tidytext)
 library(readtext)
 library(widyr)
 library(SnowballC)
@@ -32,6 +32,7 @@ library(SnowballC)
 
 First, lets install the State of the Union package. This package contains text of all the state of the Union addresses from Washington to Trump. Run `install.packages` to install the `sotu` package. 
 ```{r}
+install.packages("sotu")
 library(sotu)
 ```
 
@@ -102,7 +103,10 @@ The function `unnest_tokens()` also has an option called token. Tokenizing by wo
 
 (@)Use the documentation to tokenize the dataset into sentences: 
 ```{r}
+tidy_sotu.sentences <- sotu_whole %>%
+  unnest_tokens(sentence, text, token = "sentences")
 
+tidy_sotu.sentences
 ```
 
 We've talked about n-grams loosely in class. But lets define it more formally. An n-gram is a contiguous sequence of n items from a given sample of text or speech. The n stands for the number of items. So for example, a bi-gram is sets of two words. 
@@ -123,7 +127,10 @@ head(sotu_bigrams$bigram)
 
 (@) Use `unest_tokens()` to create tri-grams. 
 ```{r}
+sotu_trigrams <- sotu_whole %>%
+  unnest_tokens(trigram, text, token = "ngrams", n = 3)
 
+head(sotu_trigrams$trigram)
 ```
 
 ### Stopwords
@@ -189,7 +196,7 @@ tidy_sotu <- sotu_whole %>%
 ```
 (@) Before we move forward, take a minute a describe the chunk of code you just ran. What does each section do and how does it reflect the workflow for a topic modeling project? What are the important steps that are unique to topic modeling? 
 
->
+> The first section of code calls the sotu dataframe and creates a new text file for each state of the union address. The metadata file is also joined with the sotu dataframe by using the file names. The second chunk of code unnests the words into a tidy dataset and applies the stopword list. These are prerprocessing steps neccessary for textual analysis.
 
 
 The most basic kind of analysis we might be interested in doing is counting words. We can do that easily using the `count()` function: 
@@ -228,12 +235,13 @@ tidy_sotu %>%
 
 (@) Think back to the metadata that we loaded about these speeches. Why are more modern president's state of the union addresses shorter? 
 
->
+> Over time, the audience for the SOTU got bigger, so the purpose of it changed a bit. Speeches needed to hold the attention of the audience, for example. 
 
 (@) Filter the dataset to address this discrepancy and the recreate these statistics: 
 ```{r}
 
 ```
+Note from class: It's ok if we don't get this, idea was to make two datasets, one for modern and one for older presidencies.
 
 ### Term Frequency
 Often, the raw frequency of a term is not as useful as relative frequency. In other words, how often that word appears relative to the total number of words in a text. This ratio is called **term frequency**. 
@@ -262,7 +270,7 @@ tidy_sotu %>%
 ```
 (@) The code above is commented to help you follow it. Walk through the code above, and explain what each line does in your own words. If its a function you are unfamiliar with, look up the documentation.
 
-> 
+> For the tidy sotu dataset, the first line counts each word and how many times it is used by each presient. Then, the results are groups by president. The third line of code is the frequency function, which calculates the relative frequency of each word in each document. Arrange sorts the terms by the frequency result and top_n returns the word with the highest frequency per president. The last line of code prints the rows so that we can see the result in our environment.
 
 ### TF-IDF
 
@@ -301,8 +309,22 @@ sotu.tf.idf %>% arrange(desc(tf_idf))
 (@) Pick a president who served more than one term. Filter the dataset and generate both raw word counts and tf-idf scores for that president. What words are most significant in each method? Why and what does that tell you about that president? 
 
 ```{r}
-
+word.count.obama <- tidy_sotu %>%
+  filter(president == "Barack Obama") %>%
+  count(doc_id, word, sort = TRUE) 
+  
 ```
+ 
+```{r}
+obama.tf.idf <- word.count.obama %>%
+  count(doc_id, word, sort = TRUE)  %>%  
+  bind_tf_idf(word, doc_id, n) 
+
+head(obama.tf.idf)
+
+obama.tf.idf %>% arrange(desc(tf_idf))
+```
+When I ran this code, I started to think about the state of economy during Obama's first term and the controversy surrounding some of his ideas, such as increasing taxes on the wealthy, for addressing the 2008 recession. For example, $250,000 and 2 (meaning the wealthiest 2% of Americans) both had a a high idf score for the 2009 SOTU. These numbers show up every time Obama advocated for letting the Bush-era tax cuts expire, through 2012. That number doesn't show up in SOTUs after this, because those tax cuts expired in January of 2013.
 
 ### Co-Occurance
 Co-occurrence gives us a sense of words that appear in the same text, but not necessarily next to each other. It shows words that are likely to co-occur. Note that this is different than topic modeling, which we'll discuss next week. 
@@ -336,9 +358,17 @@ sotu_word_pairs %>%
 ```
 (@) Create a network graph that shows the relationship between words that appear between 125 and 175 times.
 ```{r}
-
+sotu_word_pairs %>% 
+  filter(n == 125:175) %>%
+  graph_from_data_frame() %>% 
+  ggraph(layout = "fr") + 
+  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = "tomato") +
+  geom_node_point(size = 5) +
+  geom_node_text(aes(label = name), repel = TRUE, 
+                 point.padding = unit(0.2, "lines")) +
+  theme_void()
 ```
-
+I am not sure the above is correct, as the visualization looks a bit odd.
 ## Analyzing Historical Newspapers About Buffalo Bill
 
 To practice text analysis this week you will be helping Dr. Seefeldt with his research. In the github repository below I have included a metadata file containing all of the associated info from each article and a txt folder with each text file. 
@@ -357,7 +387,7 @@ You should use the rest of this worksheet to practice text analysis (and R more 
 
 Write up a research plan in the space below. What are you looking to explore?
 
-> 
+> What words were used to describe the BBWW? What can those words tell us about the ways in which Indiana newspapers "received" these shows?
 
 Lets download the data. 
 ```{r}
@@ -372,6 +402,12 @@ bb.metadata <- read.csv("https://raw.githubusercontent.com/dseefeldt/IndianaNews
 
 (@) There are a few problems with this metadata from a tidy data perspective. First the date column isn't useful for assessing change over time. Can you split it into 3 columns one for year, month, and day? This will be useful if you want to try and identify change over time. Use the Date column not the FullDate column. This column is messy and you'll need to clean it up in order to have useful data. 
 ```{r}
+library(lubridate)
+```
+
+```{r}
+bb.metadata.date.separated <- bb.metadata %>% 
+  separate(Date, sep=" ", into = c("month", "day", "year")) #this will need tweaking later, as the day and month are worded differently and there is punctuation as well that needs to be taken out.
 ```
 
 (@) Now lets load the BB data. This happens in a slightly different way than with the SOTU data since its local data and not data from an R package. 
@@ -382,19 +418,52 @@ bb <- readtext(paste0(data_dir, "/*.txt"))
 
 (@) Now you need to join this with the metadata for each file. Note that doc_id and Filename are the same value. How would you join two datasets together in R so that you can proceed with textual analysis? 
 ```{r}
+bb.test.for.joining <- colnames(bb)[1] <- "Filename"
 
+bb.joined <- left_join(bb, bb.metadata.date.separated, c("Filename")) #bb.joined is the dataframe to use in all code below. 
 ```
 
 (@) Now you can begin your textual analysis for Dr. S. Add code chunks below and intersperse text to explain what you are doing and why in the text of the worksheet. 
 ```{r}
+bb.joined.tokenized <- bb.joined %>%
+  unnest_tokens(word, text)
 
-
+bb.joined.tokenized #I tokenized the documents so that I could investigate word usage in the corpus. 
 ```
+```{r}
+bb.joined.rel.freq <- bb.joined.tokenized %>%
+  filter(!word %in% stop_words$word) %>%
+  count(Filename, word, sort = T)  %>%# 
+  group_by(Filename) %>% 
+  mutate(n_tot = sum(n), 
+         term_freq = n/n_tot) #I calculated word frequency (and filtered out stopwords) so that I could get a sense of the words that are important in the corpus.
+```
+```{r}
+bb_word_pairs <- bb.joined %>% 
+  mutate(speech_end = word(text, -5000, end = -1)) %>%
+  unnest_tokens(word, speech_end) %>%   
+  filter(!word %in% stop_words$word) %>%  
+  pairwise_count(word, Filename, sort = TRUE, upper = FALSE)
+
+head(bb_word_pairs)
+```
+```{r}
+bb_word_pairs %>% 
+  filter(n >= 100) %>%
+  graph_from_data_frame() %>% 
+  ggraph(layout = "fr") + 
+  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = "tomato") +
+  geom_node_point(size = 5) +
+  geom_node_text(aes(label = name), repel = TRUE, 
+                 point.padding = unit(0.2, "lines")) +
+  theme_void() #I played around with the number in the filter until I was happy with the visualization. These are the words that appear more than 100 times in the corpus. 
+```
+#The words "American" and "west" are positioned near each other in this visualization, which leads me to hypothesize that Indiana newspapers spoke of the BBWW in ways that connected the West (or at least Buffalo Bill's version of it) with American identity. 
 
 
 (@) Finally, when you are all done. Write up your findings. What research question did you focus on and what did you learn? 
 
-
+I was interested to see which words were used most often, and in what pairs, in the BBWW corpus. The data processes that I used created a very large dataframe, so I created a visualization to assist me with investigating my research question. I noticed that "American" and "west" are words that occur more than 100 times in the corpus, and that they occur near one another. This led me to hypothesize that Indiana newspapers spoke of the shows in ways that connected Buffalo Bill's version of the American West with American identity (of course, this is a preliminary hypothesis, but it does seem to fit with the little I know about BBWW).
 
 
 

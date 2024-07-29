@@ -74,7 +74,7 @@ The second important option when running `LDA()` is the seed option. You don't w
 
 Lets now train our model. This will take a few minutes: 
 ```{r}
-ac.lda <- LDA(ac.dtm, k = 5, control = list(seed = 12345))
+ac.lda <- LDA(ac.dtm, k = 2, control = list(seed = 12345), method="Gibbs", alpha = 0.5)
 ac.lda
 ```
 
@@ -105,7 +105,7 @@ ac.top.terms %>%
 ```{r}
 ac.top.terms.test <- ac.topics %>%
   arrange(desc(beta)) %>% 
-  group_by(topic) %>% slice(10:1)
+  group_by(topic) %>% slice(1:10)
 
 ac.top.terms.test %>%
   mutate(term = reorder_within(term, beta, topic)) %>%
@@ -114,7 +114,7 @@ ac.top.terms.test %>%
   facet_wrap(~ topic, scales = "free") +
   scale_y_reordered()
 ```
-I am not sure how to get just one topic returned. I can change the number of words returned for each topic, but it's still showing me five topics.
+I retrained the model on 2 topics, but it would not let me do just one topic. I changed the code to use Gibbs sampling, but I still got the error message when trying to return just one topic.
 
 Another useful way to look at the words in each topic is by visualizing them as a wordcloud.
 ```{r warning=FALSE}
@@ -154,6 +154,9 @@ ggplot(data=topics.by.year, aes(x=issue_date, y=gamma)) + geom_bar(stat="identit
 Using this we can tell that topic 5, which from earlier had the words improve, grow, ties, contracts, and gasoline as the top five words, is most prominent in January 1915. 
 
 (@) Use the rest of this worksheet to experiment with topic modeling. I've added the code to download a much larger dataset - the issues of Mind and Body. This corpus has 413 documents ranging from the 1890s to 1936. You'll want to start with at least 25 topics. 
+
+I still cannot get the section below to work. Was it something to do with file names that repeat with the BB dataset? I seem to remember other students having trouble, and it was something to do with the BB file names...
+
 ```{r}
 #| eval: false
 #download.file("https://github.com/regan008/8510-TextAnalysisData/blob/main/MindAndBody.zip?raw=true", "MB.zip")
@@ -175,7 +178,7 @@ mb.metadata <- read.csv("https://raw.githubusercontent.com/regan008/8510-TextAna
 meta.mind.body <- as.data.frame(mb.metadata)
 mb.metadata$Filename <- paste("MB_", meta$Filename, sep="")
 file_paths <- system.file("mbtxt")
-mb_texts <- readtext(paste("mbtxt","*.txt", sep="")) #error: File ' ' does not exist.
+mb_texts <- readtext(paste("mbtxt","*.txt", sep="")) #error: Error in list_files(file, ignore_missing, TRUE, verbosity) : File '' does not exist.
 mb_whole <- full_join(mb.metadata, mb_texts, by = c("filename" = "doc_id")) %>% as_tibble() 
 
 tidy_mb <- mb_whole %>%
@@ -205,9 +208,60 @@ For the second, a general topic model of the extraneous articles will be needed.
 
 Add code blocks below as necessary.
 
+```{r}
+tidy_bb_words <- bb.joined.rel.freq %>% count(Filename, word)
+```
+```{r}
+bb.dtm <- tidy_bb_words %>% count (Filename, word) %>% cast_dtm (Filename, word, n)
+```
+```{r}
+bb.lda <- LDA(bb.dtm, k = 15, control = list(seed=12345), method = "Gibbs", alpha = 0.5)
+bb.lda
+```
+```{r}
+bb.topics <- tidy(bb.lda, matrix = "beta")
+head(bb.topics)
+```
+```{r}
+bb.top.terms <- bb.topics %>% 
+  arrange(desc(beta)) %>%
+  group_by(topic) %>% slice (1:10)
+
+bb.top.terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(beta, term, fill = factor (topic))) + 
+  geom_col(show.legend = FALSE) + 
+  facet_wrap(~topic, scales = "free") +
+  scale_y_reordered()
+```
+```{r}
+library(wordcloud)
+topic1 <- bb.topics %>% filter(topic == 2)
+wordcloud(topic1$term, topic1$beta, max.words = 50, random.order = FALSE, rot.per = 0.3, colors = brewer.pal(6, "Dark2"))
+```
+```{r}
+bb.documents <- tidy(bb.lda, matrix = "gamma")
+head(bb.documents)
+```
+```{r}
+bb.documents %>% filter(document == "MB_1934_Feb.txt") %>% arrange(desc(gamma))
+```
+```{r}
+topics.by.year <- full_join (bb.documents, bb.metadata.date.separated, by = join_by(document == Filename))
+```
+```{r}
+topics.by.chronyear <- paste(topics.by.year$month, " ", 
+                             topics.by.year$year)
+ggplot(data=topics.by.year, aes(x = topics.by.chronyear, y = gamma)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~topic.scales = "free") +
+  theme(axis.text.x = element_text(angle =90, vjust = 0.5, hjust = 1)) #I am lost here, I get an error: Error: unexpected '=' in:"  geom_bar(stat = "identity") + facet_wrap(~topic.scales ="
+```
+
+
 (@) Finally, when you are all done. Write up your findings. What research question did you focus on and what did you learn? 
 
-
+This is not a finished worksheet, but I wanted to provide an update and ask for some help moving forward. I am able to get some code running for the BB dataset, and I even trained one model and played around with the number of topics, but I am not sure how to move from that to being able to actually answer the historical questions posed in the worksheet...
 
 **This was the final worksheet for this class. You did it - you learned to code in R! Congrats!**
 

@@ -181,4 +181,22 @@ gg.by.loc %>%
   table()
 #doesn't work
 
+library(tidyverse)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
